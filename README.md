@@ -1,8 +1,8 @@
 ---
-name: wisediag-medocr
-description: "Convert PDF files to Markdown using WiseDiag MedOcr API. Supports table recognition, multi-column layouts, and medical document OCR. Usage: Upload a PDF file and say Use MedOcr to process this."
+name: wiseocr
+description: "Convert PDF files to Markdown using WiseOCR API (powered by WiseDiag). Supports table recognition, multi-column layouts, and medical document OCR. Usage: Upload a PDF file and say Use WiseOCR to process this."
 registry:
-  homepage: https://github.com/wisediag/medocr-skill
+  homepage: https://github.com/wisediag/wiseocr-skill
   author: WiseDiag
   credentials:
     required: true
@@ -10,7 +10,7 @@ registry:
       - WISEDIAG_API_KEY
 ---
 
-# WiseDiag MedOcr (OpenClaw Skill)
+# WiseOCR (OpenClaw Skill, powered by WiseDiag)
 
 A medical-grade OCR tool that converts PDF files into Markdown format.
 
@@ -29,10 +29,10 @@ A medical-grade OCR tool that converts PDF files into Markdown format.
 
 **You MUST use the provided script to process files. Do NOT call any API or HTTP endpoint directly.**
 
-The script `scripts/medocr.py` handles everything automatically:
+The script `scripts/wiseocr.py` handles everything automatically:
 - API authentication (reads `WISEDIAG_API_KEY` from environment)
 - PDF upload and OCR processing
-- Saves the Markdown result to `WiseDiag-MedOcr-1.0.0/{filename}.md`
+- Saves the Markdown result to `WiseOCR/{filename}.md`
 - No additional saving is needed after the script runs
 
 ## Installation (for OpenClaw)
@@ -67,30 +67,30 @@ source ~/.zshrc
 
 ```bash
 cd scripts
-python medocr.py -i /path/to/input.pdf -n original_filename
+python wiseocr.py -i /path/to/input.pdf -n original_filename
 ```
 
 **IMPORTANT:** Always pass `-n` with the original filename (without extension) so the output file is named correctly. If the uploaded file has been renamed (e.g. to `ocr_input.pdf`), `-n` ensures the output uses the user's original filename.
 
-The script will automatically save the result to `WiseDiag-MedOcr-1.0.0/{name}.md`.
+The script will automatically save the result to `WiseOCR/{name}.md`.
 
 **Example:**
 
 ```bash
-python medocr.py -i /tmp/ocr_input.pdf -n 体检报告
-# Output saved to: WiseDiag-MedOcr-1.0.0/体检报告.md
+python wiseocr.py -i /tmp/ocr_input.pdf -n 体检报告
+# Output saved to: WiseOCR/体检报告.md
 ```
 
 **With custom output directory:**
 
 ```bash
-python medocr.py -i /path/to/input.pdf -n 体检报告 -o /custom/output/dir
+python wiseocr.py -i /path/to/input.pdf -n 体检报告 -o /custom/output/dir
 ```
 
 **Higher quality rendering:**
 
 ```bash
-python medocr.py -i /path/to/input.pdf --dpi 300
+python wiseocr.py -i /path/to/input.pdf --dpi 300
 ```
 
 ## Arguments
@@ -99,14 +99,14 @@ python medocr.py -i /path/to/input.pdf --dpi 300
 |------|-------------|
 | `-i, --input` | Input PDF file path (required) |
 | `-n, --name` | Original filename without extension for output (recommended) |
-| `-o, --output` | Output directory (default: ./WiseDiag-MedOcr-1.0.0) |
+| `-o, --output` | Output directory (default: ./WiseOCR) |
 | `--dpi` | PDF rendering DPI, 72-600 (default: 200) |
 
 ## Output
 
 After the script runs, the Markdown file is saved automatically:
 
-- Default: `WiseDiag-MedOcr-1.0.0/{name}.md`
+- Default: `WiseOCR/{name}.md`
 - The file is named using the `-n` parameter (e.g. `-n 报告` → `报告.md`), or falls back to the input filename
 - No additional saving is needed — the file is already on disk
 
@@ -131,7 +131,7 @@ Your API key may be invalid or expired. Visit [https://console.wisediag.com/apiK
 Try increasing the DPI for better image quality:
 
 ```bash
-python medocr.py -i input.pdf --dpi 300
+python wiseocr.py -i input.pdf --dpi 300
 ```
 
 ## License
