@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-WiseDiag MedOcr CLI - Convert PDF to Markdown via WiseDiag OCR API
+WiseOCR CLI - Convert PDF to Markdown (powered by WiseDiag)
 
 Usage:
     1. Set API key: export WISEDIAG_API_KEY=your_api_key
-    2. Run: python medocr.py -i input.pdf
+    2. Run: python wiseocr.py -i input.pdf
 
 Get API key: https://console.wisediag.com/apiKeyManage
 """
@@ -32,7 +32,7 @@ def get_api_key():
         print("""
 [!] Error: WISEDIAG_API_KEY environment variable is not set.
 
-To use this tool, you need a WiseDiag API key:
+To use this tool, you need a WiseOCR API key (from WiseDiag):
 
 1. Visit: https://console.wisediag.com/apiKeyManage
 2. Sign up/Login and create an API key
@@ -143,11 +143,11 @@ def _upload_with_retry(endpoint, input_path, headers, params, max_retries=MAX_RE
 
 
 def process_pdf(input_path, output_dir=None, service_url=DEFAULT_SERVICE_URL, dpi=DEFAULT_DPI, name=None):
-    """Process a PDF file via the WiseDiag MedOcr API."""
+    """Process a PDF file via the WiseOCR API (powered by WiseDiag)."""
     input_path = Path(input_path)
 
     if output_dir is None:
-        output_dir = Path.cwd() / "WiseDiag-MedOcr-1.0.0"
+        output_dir = Path.cwd() / "WiseOCR"
     else:
         output_dir = Path(output_dir)
 
@@ -202,14 +202,14 @@ def process_pdf(input_path, output_dir=None, service_url=DEFAULT_SERVICE_URL, dp
 
 def main():
     parser = argparse.ArgumentParser(
-        description="WiseDiag MedOcr CLI - Convert PDF to Markdown"
+        description="WiseOCR CLI - Convert PDF to Markdown (powered by WiseDiag)"
     )
     parser.add_argument("-i", "--input", required=True, help="Input PDF file path")
     parser.add_argument("-o", "--output", help="Output directory")
     parser.add_argument(
         "--service-url",
         default=DEFAULT_SERVICE_URL,
-        help=f"MedOcr API URL (default: {DEFAULT_SERVICE_URL})",
+        help=f"WiseOCR API URL (default: {DEFAULT_SERVICE_URL})",
     )
     parser.add_argument(
         "--dpi",
