@@ -26,7 +26,7 @@ The script `scripts/medocr.py` handles everything:
 ## 🔑 API Key Setup (Required)
 
 **Get your API key:**
-👉 https://chat.wisediag.com/apiKeyManage
+👉 https://console.wisediag.com/apiKeyManage
 
 ```bash
 export WISEDIAG_API_KEY=your_api_key
