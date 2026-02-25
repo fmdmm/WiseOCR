@@ -44,22 +44,24 @@ pip install -r requirements.txt
 
 ```bash
 cd scripts
-python medocr.py -i /path/to/input.pdf
+python medocr.py -i /path/to/input.pdf -n original_filename
 ```
 
-The script will automatically save the result to `WiseDiag-MedOcr-1.0.0/{filename}.md`.
+**IMPORTANT:** Always pass `-n` with the original filename (without extension) so the output file is named correctly. If the uploaded file has been renamed (e.g. to `ocr_input.pdf`), `-n` ensures the output uses the user's original filename.
+
+The script will automatically save the result to `WiseDiag-MedOcr-1.0.0/{name}.md`.
 
 **Example:**
 
 ```bash
-python medocr.py -i /path/to/体检报告.pdf
+python medocr.py -i /tmp/ocr_input.pdf -n 体检报告
 # Output saved to: WiseDiag-MedOcr-1.0.0/体检报告.md
 ```
 
 **With custom output directory:**
 
 ```bash
-python medocr.py -i /path/to/input.pdf -o /custom/output/dir
+python medocr.py -i /path/to/input.pdf -n 体检报告 -o /custom/output/dir
 ```
 
 ## Arguments
@@ -67,6 +69,7 @@ python medocr.py -i /path/to/input.pdf -o /custom/output/dir
 | Flag | Description |
 |------|-------------|
 | `-i, --input` | Input PDF file path (required) |
+| `-n, --name` | Original filename without extension for output (recommended) |
 | `-o, --output` | Output directory (default: ./WiseDiag-MedOcr-1.0.0) |
 | `--dpi` | PDF rendering DPI, 72-600 (default: 200) |
 
@@ -74,8 +77,8 @@ python medocr.py -i /path/to/input.pdf -o /custom/output/dir
 
 After the script runs, the Markdown file is saved automatically:
 
-- Default: `WiseDiag-MedOcr-1.0.0/{filename}.md`
-- The file is named after the input PDF (e.g. `报告.pdf` → `报告.md`)
+- Default: `WiseDiag-MedOcr-1.0.0/{name}.md`
+- The file is named using the `-n` parameter (e.g. `-n 报告` → `报告.md`), or falls back to the input filename
 - No additional saving is needed — the file is already on disk
 
 ## License
